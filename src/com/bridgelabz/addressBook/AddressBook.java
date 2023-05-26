@@ -1,6 +1,7 @@
 package com.bridgelabz.addressBook;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -45,6 +46,18 @@ public class AddressBook {
             }
         }
     }
+    public void deleteContact(String firstName, String lastName) {
+        Iterator<Contact> iterator = contacts.iterator();
+        while (iterator.hasNext()) {
+            Contact contact = iterator.next();
+            if (contact.getfName().equalsIgnoreCase(firstName) && contact.getlName().equalsIgnoreCase(lastName)) {
+                iterator.remove();
+                System.out.println("Contact deleted successfully!");
+                return; // Exit the method after deleting the contact
+            }
+        }
+        System.out.println("Contact not found!");
+    }
 
             public static void main (String[]args){
                 AddressBook addressBook = new AddressBook();
@@ -54,7 +67,8 @@ public class AddressBook {
                     System.out.println("1. Add Contact");
                     System.out.println("2. Display Contacts");
                     System.out.println("3. Edit Contacts");
-                    System.out.println("4. Exit");
+                    System.out.println("4. Delete Contacts");
+                    System.out.println("5. Exit");
                     System.out.print("Enter your choice: ");
                     int choice = scanner.nextInt();
                     scanner.nextLine();
@@ -93,6 +107,14 @@ public class AddressBook {
                             addressBook.editContact(editFirstName, editLastName);
                             break;
                         case 4:
+                            System.out.print("Enter first name of the contact to delete: ");
+                            String deleteFirstName = scanner.nextLine();
+                            System.out.print("Enter last name of the contact to delete: ");
+                            String deleteLastName = scanner.nextLine();
+                            addressBook.deleteContact(deleteFirstName, deleteLastName);
+                            break;
+
+                        case 5:
                             System.out.println("Exit");
                             break;
                         default:
@@ -105,5 +127,4 @@ public class AddressBook {
         }
 
 
-    }
-}
+
